@@ -227,8 +227,14 @@ normaliseGhcArgs (Just ghcVersion) PackageDescription{..} ghcArgs
                   , "keep-going" -- try harder, the build will still fail if it's erroneous
                   , "print-axiom-incomps" -- print more debug info for closed type families
                   ]
+              , from
+                  [9, 10]
+                  [ "diagnostics-as-json"
+                  , "print-error-index-links"
+                  , "break-points"
+                  ]
               ]
-          , flagIn . invertibleFlagSet "-d" $ ["ppr-case-as-let", "ppr-ticks"]
+          , flagIn . invertibleFlagSet "-d" ["ppr-case-as-let", "ppr-ticks"]
           , isOptIntFlag
           , isIntFlag
           , if safeToFilterWarnings
@@ -289,6 +295,7 @@ normaliseGhcArgs (Just ghcVersion) PackageDescription{..} ghcArgs
         , from [8, 6] ["-dhex-word-literals"]
         , from [8, 8] ["-fshow-docs-of-hole-fits", "-fno-show-docs-of-hole-fits"]
         , from [9, 0] ["-dlinear-core-lint"]
+        , from [9, 10] ["-dipe-stats"]
         ]
 
     isOptIntFlag :: String -> Any
